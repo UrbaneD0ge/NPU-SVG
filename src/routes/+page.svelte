@@ -20,6 +20,8 @@ let condition = true;
 
 <button on:click={() => condition = !condition}> Show NPU</button>
 
+<!-- TODO: Be able to select one NPU and have all others transition out. -->
+
 <div>
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800" viewBox="0 0 800 800">
     <g>
