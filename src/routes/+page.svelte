@@ -2,7 +2,7 @@
 import { draw } from 'svelte/transition';
 import { quartInOut } from 'svelte/easing';
 
-let duration = 4000;
+let duration = 2000;
 let delay = 150;
 let intro = true;
 
@@ -13,17 +13,32 @@ const drawConfig = {
   easing: quartInOut
 };
 
-let condition = true;
+let condition = false;
+
+let hoveredNPU = '';
+
+function handleMouseOver(event) {
+  hoveredNPU = event.target.getAttribute('data-NPU');
+
+  console.log(hoveredNPU);
+}
+
+function handleMouseOut() {
+  hoveredNPU = '';
+}
 </script>
 
 <h1>NPU SVG Funtime</h1>
 
-<button on:click={() => condition = !condition}> Show NPU</button>
+<button on:click={() => condition = !condition}> {condition ? 'Hide' : 'Show'} NPUs!</button>
+
+<!-- display the contents of data-NPU for the path being hovered -->
+<h3>NPU-{hoveredNPU}</h3>
 
 <!-- TODO: Be able to select one NPU and have all others transition out. -->
 
-<div>
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800" viewBox="0 0 800 800">
+<div on:mouseover={handleMouseOver}>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600" viewBox="0 0 800 600">
     <g>
       <g>
         {#if condition}
@@ -66,6 +81,17 @@ let condition = true;
   </div>
 
 <style>
+  h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  }
+
+  button {
+  background-color: #e0c300;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  border-radius: 20px;
+  }
   div {
   display: flex;
   justify-content: center;
@@ -77,8 +103,8 @@ let condition = true;
   }
 
   path {
-  fill: white;
-  stroke: #000;
+  fill: transparent;
+  stroke: #fff;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -86,6 +112,19 @@ let condition = true;
   }
 
   path:hover {
-  fill: teal;
+  fill: #e0c300;
+  }
+
+  path:hover::before {
+    content: attr(data-NPU);
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 </style>
