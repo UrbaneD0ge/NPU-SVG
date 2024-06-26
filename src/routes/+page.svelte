@@ -193,18 +193,4 @@ let condition = true;
 		transition: fill 0.7s;
 		/* transition: opacity 1s; */
 	}
-
-	.NPU:hover::after {
-		content: attr(data-NPU);
-		font-size: xx-large;
-		position: absolute;
-		background-color: #000;
-		color: #85099e;
-		padding: 5px;
-		border-radius: 5px;
-		/* font-size: 12px; */
-		top: -20px;
-		left: 50%;
-		/* transform: translateX(-50%); */
-	}
 </style>
